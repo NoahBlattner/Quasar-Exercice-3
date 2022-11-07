@@ -1,5 +1,36 @@
 // State : données du magasin
 const state = {
+  dishes: [
+    {
+      id: 1,
+      image : 'https://i.imgur.com/0umadnY.jpg',
+      name : 'Burger',
+      description : "Un hamburger est un sandwich composé d'une ou plusieurs tranches de viande hachée, généralement du bœuf, placées dans un petit pain ou une brioche.",
+      rating : 4,
+    },
+    {
+      id : 2,
+      image : 'https://i.imgur.com/b9zDbyb.jpg',
+      name : 'Pizza',
+      description : "La pizza est un plat savoureux d'origine italienne, consistant en une base généralement ronde et aplatie de pâte levée à base de blé.",
+      rating : 5,
+    },
+    {
+      id: 3,
+      image : 'https://i.imgur.com/RbKjUjB.jpg',
+      name : 'Petits choux',
+      description :
+        "Le chou de Bruxelles est une variété de chou, plante herbacée de la famille des Brassicaceae. C’est vraiement pas bon...",
+      rating : 1,
+    },
+    {
+      id: 4,
+      image : 'https://i.imgur.com/xAuhNVg.jpg',
+      name : 'BBQ Ribs',
+      description : "Les BBQ ribs ou barbecue ribs sont des grands classiques très appréciés partout dans le monde.",
+      rating : 5,
+    }
+  ]
 }
 
 /*
@@ -7,12 +38,18 @@ Mutations : méthode qui manipulent les données
 Les mutations ne peuvent pas être asynchrones !!!
  */
 const mutations = {
+  DELETE_DISH(state, payload) {
+    state.dishes = state.dishes.filter(el => el.id !== payload)
+  }
 }
 /*
 Actions : méthodes du magasin qui font appel aux mutations
 Elles peuvent être asynchrones !
  */
 const actions = {
+  deleteDish(context, payload) {
+    context.commit('DELETE_DISH', payload)
+  }
 }
 
 /*
@@ -21,6 +58,9 @@ Fonctionne comme les propriétés calculées
 Sert à calculer, trier, filtrer ou formater les donneés
  */
 const getters = {
+  dishes () {
+    return state.dishes
+  }
 }
 
 /*

@@ -16,7 +16,6 @@
           Quasar | Exercice 3
         </q-toolbar-title>
 
-        <div>Vuex & Formulaires</div>
       </q-toolbar>
     </q-header>
 

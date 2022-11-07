@@ -34,6 +34,7 @@
       	color="blue"
       	flat>Modifier</q-btn>
       <q-btn
+        @click="requestDelete(plat.id)"
       	icon="delete"
       	color="red"
       	flat>Supprimer</q-btn>
@@ -43,21 +44,42 @@
     	v-model="afficherFormPlat">
       <form-plat action="modifier" />
     </q-dialog>
+
   </q-card>
 </template>
 
 <script>
-	export default {
-		props: ['plat'],
-		data() {
-			return {
-				afficherFormPlat: false
-			}
-		},
-		components: {
-			'form-plat' : require('components/FormPlat.vue').default
-		}
-	}
+import { mapActions } from 'vuex'
+export default {
+  props: {
+    plat: {
+      required: true
+    }
+  },
+  data() {
+    return {
+      afficherFormPlat: false,
+      showDeleteConfirmation: false
+    }
+  },
+  components: {
+    'form-plat': require('components/FormPlat.vue').default
+  },
+  methods: {
+    ...mapActions('dishes', ['deleteDish']),
+    requestDelete(dishId) {
+      this.$q.dialog({
+        title: 'Confirm deletion',
+        message: 'Are you sure you want to delete this dish ?',
+        cancel: true,
+        ok: 'Delete',
+        persistent: true
+      }).onOk(() => {
+        this.deleteDish(dishId)
+      })
+    }
+  }
+}
 </script>
 
 <style>
