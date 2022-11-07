@@ -66,7 +66,7 @@ export default {
     'form-plat': require('components/FormPlat.vue').default
   },
   methods: {
-    ...mapActions('dishes', ['deleteDish']),
+    ...mapActions('dishes', ['AC_DeleteDish']),
     requestDelete(dishId) {
       this.$q.dialog({
         title: 'Confirm deletion',
@@ -75,7 +75,7 @@ export default {
         ok: 'Delete',
         persistent: true
       }).onOk(() => {
-        this.deleteDish(dishId)
+        this.AC_DeleteDish(dishId)
       })
     }
   }

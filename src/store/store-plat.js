@@ -40,6 +40,9 @@ Les mutations ne peuvent pas être asynchrones !!!
 const mutations = {
   DELETE_DISH(state, payload) {
     state.dishes = state.dishes.filter(el => el.id !== payload)
+  },
+  ADD_DISH(state, payload) {
+    state.dishes.push(payload)
   }
 }
 /*
@@ -47,8 +50,14 @@ Actions : méthodes du magasin qui font appel aux mutations
 Elles peuvent être asynchrones !
  */
 const actions = {
-  deleteDish(context, payload) {
+  AC_DeleteDish(context, payload) {
     context.commit('DELETE_DISH', payload)
+  },
+  AC_AddDish(context, payload) {
+    if (state.dishes.length) {
+      payload.id = Math.max(...state.dishes.map(task => task.id)) + 1
+    }
+    context.commit('ADD_DISH', payload)
   }
 }
 

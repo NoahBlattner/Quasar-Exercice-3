@@ -1,7 +1,7 @@
 <template>
 	<q-card class="form-card">
     <q-card-section>
-      <div class="text-h6 heading">{{ action }} Plat</div>
+      <div class="text-h6 heading">{{ action }} dish</div>
     </q-card-section>
 
     <q-card-section>
@@ -9,16 +9,20 @@
     	<div class="row q-mb-md">
 	      <q-input
 	      	filled
-	      	v-model="plat.nom"
-	      	label="Nom (Burger)"
+	      	v-model="dish.name"
+	      	label="Name (Burger)"
+          :rules="[(val) => val.length <= 20 || 'Maximum of 20 characters !', (val) => val.length > 0 || 'Cannot be empty !']"
+          ref="name"
 	      	class="col" />
     	</div>
 
     	<div class="row q-mb-md">
     		<q-input
 		      filled
-		      v-model="plat.description"
+		      v-model="dish.description"
 		      label="Description"
+          :rules="[val => val.length <= 135 || 'Maximum of 135 characters !']"
+          ref="description"
 		      type="textarea"
 		      class="col" />
     	</div>
@@ -26,22 +30,22 @@
     	<div class="row q-mb-md">
 	      <q-input
 	      	filled
-	      	v-model="plat.image"
-	      	label="URL de l'image"
+	      	v-model="dish.image"
+	      	label="Image URL"
 	      	class="col" />
 	      <q-img
-          :src="plat.image ? plat.image : 'statics/image-placeholder.png'"
+          :src="dish.image ? dish.image : 'statics/image-placeholder.png'"
           class="q-ml-sm"
           contain />
     	</div>
 
     	<div class="q-mb-md">
     		<div class="row">
-					<p class="q-mb-none">Note:</p>
+					<p class="q-mb-none">Rating:</p>
     		</div>
 				<div class="row">
 	    		<q-rating
-			      v-model="plat.note"
+			      v-model="dish.rating"
 			      size="2em"
 			      color="orange" />
 				</div>
@@ -57,24 +61,40 @@
       <q-btn
       	label="Sauver"
       	color="primary"
-      	v-close-popup />
+        @click="submitForm"/>
     </q-card-actions>
   </q-card>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 	export default {
 		props: ['action'],
 		data() {
 			return {
-				plat: {
+				dish: {
 					name: '',
 					description: '',
-					note: 1,
+					rating: 1,
 					image: ''
 				}
 			}
-		}
+		},
+    methods: {
+      ...mapActions('dishes', ['AC_AddDish']),
+      submitForm() {
+        this.$refs.name.validate()
+        this.$refs.description.validate()
+
+        if (!this.$refs.name.hasError && !this.$refs.description.hasError) {
+          this.$emit('close')
+          this.saveDish()
+        }
+      },
+      saveDish() {
+        this.AC_AddDish(this.dish)
+      }
+    }
 	}
 </script>
 
