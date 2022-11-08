@@ -2,7 +2,7 @@
 	<q-card
 		class="card">
     <q-img
-      :src="dish.image"
+      :src="dish.image ? dish.image : 'statics/image-placeholder.png'"
       basic
       contain
     >
@@ -21,23 +21,25 @@
       />
     </q-card-section>
 
-    <q-card-section>
-      {{ dish.description }}
+    <q-card-section
+      decoration="">
+      <p v-if="dish.description.length">{{ dish.description }}</p>
+      <em v-else>No description given.</em>
     </q-card-section>
 
     <q-card-actions
     	class="absolute-bottom"
-    	align="right">
+      align="around">
       <q-btn
       	@click="showUpdateForm = true"
       	icon="edit"
       	color="blue"
-      	flat>Modifier</q-btn>
+      	flat>Update</q-btn>
       <q-btn
         @click="requestDelete(dish.id)"
       	icon="delete"
       	color="red"
-      	flat>Supprimer</q-btn>
+      	flat>Delete</q-btn>
     </q-card-actions>
 
     <q-dialog
@@ -107,4 +109,7 @@ export default {
 	.card .q-rating__icon--active {
 		opacity: 1;
 	}
+  .italic {
+
+  }
 </style>

@@ -22,10 +22,10 @@
 
     6) Ajouter la possibilité de modifier un élément
 
-	7) Si aucune description n'est fournie pour un plat,
-	   afficher le texte "Aucune description fournie" en italique
+    7) Si aucune description n'est fournie pour un plat,
+       afficher le texte "Aucune description fournie" en italique
 
-	8) Si aucune image n'est fournie, utiliser l'image statics/image-placeholder.png
+    8) Si aucune image n'est fournie, utiliser l'image statics/image-placeholder.png
 
 	-->
   <q-page class="q-pa-lg">
