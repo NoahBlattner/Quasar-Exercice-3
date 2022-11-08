@@ -8,12 +8,12 @@
 				:plat="plat" />
 
 	    <bouton-ajouter
-	    	@click="afficherFormPlat = true" />
+	    	@click="showUpdateForm = true" />
 
 	    <q-dialog
 	    	v-model="afficherFormPlat">
         <form-plat
-        	@close="afficherFormPlat = false"
+        	@close="showUpdateForm = false"
         	action="ajouter" />
       </q-dialog>
 
@@ -27,7 +27,7 @@
 	export default {
 	  data() {
 	  	return {
-	  		afficherFormPlat: false
+	  		showUpdateForm: false
 	  	}
 	  },
 	  computed: {

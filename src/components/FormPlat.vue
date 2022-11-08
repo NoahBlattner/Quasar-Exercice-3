@@ -69,10 +69,18 @@
 <script>
 import {mapActions} from 'vuex'
 	export default {
-		props: ['action'],
+		props: {
+      action: {
+        default: 'add'
+      },
+      dishToUpdate: {
+        type: Object
+      }
+    },
 		data() {
 			return {
 				dish: {
+          id: null,
 					name: '',
 					description: '',
 					rating: 1,
@@ -81,18 +89,29 @@ import {mapActions} from 'vuex'
 			}
 		},
     methods: {
-      ...mapActions('dishes', ['AC_AddDish']),
+      ...mapActions('dishes', ['AC_AddDish', 'AC_UpdateDish']),
       submitForm() {
         this.$refs.name.validate()
         this.$refs.description.validate()
 
         if (!this.$refs.name.hasError && !this.$refs.description.hasError) {
           this.$emit('close')
-          this.saveDish()
+
+          if (this.action === 'add') {
+            this.saveDish()
+          } else if (this.action === 'update') {
+            this.AC_UpdateDish(this.dish)
+          }
+
         }
       },
       saveDish() {
         this.AC_AddDish(this.dish)
+      }
+    },
+    mounted () {
+      if (this.action === 'update') {
+        this.dish = this.dishToUpdate
       }
     }
 	}

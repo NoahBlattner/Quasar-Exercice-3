@@ -43,6 +43,9 @@ const mutations = {
   },
   ADD_DISH(state, payload) {
     state.dishes.push(payload)
+  },
+  UPDATE_DISH(state, payload) {
+    state.dishes[payload.index] = payload.dish
   }
 }
 /*
@@ -58,6 +61,10 @@ const actions = {
       payload.id = Math.max(...state.dishes.map(task => task.id)) + 1
     }
     context.commit('ADD_DISH', payload)
+  },
+  AC_UpdateDish(context, payload) {
+    const index = state.dishes.findIndex(el => el.id === payload.id)
+    context.commit('UPDATE_DISH', {index, dish: payload})
   }
 }
 

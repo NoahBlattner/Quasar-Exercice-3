@@ -2,18 +2,18 @@
 	<q-card
 		class="card">
     <q-img
-      :src="plat.image"
+      :src="dish.image"
       basic
       contain
     >
       <div class="absolute-bottom text-h6">
-        {{ plat.nom }}
+        {{ dish.name }}
       </div>
     </q-img>
 
 		<q-card-section>
       <q-rating
-        :value="plat.note"
+        :value="dish.rating"
         size="2em"
         color="orange"
         readonly
@@ -22,27 +22,27 @@
     </q-card-section>
 
     <q-card-section>
-      {{ plat.description }}
+      {{ dish.description }}
     </q-card-section>
 
     <q-card-actions
     	class="absolute-bottom"
     	align="right">
       <q-btn
-      	@click="afficherFormPlat = true"
+      	@click="showUpdateForm = true"
       	icon="edit"
       	color="blue"
       	flat>Modifier</q-btn>
       <q-btn
-        @click="requestDelete(plat.id)"
+        @click="requestDelete(dish.id)"
       	icon="delete"
       	color="red"
       	flat>Supprimer</q-btn>
     </q-card-actions>
 
     <q-dialog
-    	v-model="afficherFormPlat">
-      <form-plat action="modifier" />
+    	v-model="showUpdateForm">
+      <form-plat @close="showUpdateForm = false" action="update" :dishToUpdate="dish"/>
     </q-dialog>
 
   </q-card>
@@ -52,13 +52,13 @@
 import { mapActions } from 'vuex'
 export default {
   props: {
-    plat: {
+    dish: {
       required: true
     }
   },
   data() {
     return {
-      afficherFormPlat: false,
+      showUpdateForm: false,
       showDeleteConfirmation: false
     }
   },

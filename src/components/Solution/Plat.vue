@@ -56,10 +56,10 @@
 	import { mapActions } from 'vuex'
 
 	export default {
-		props: ['plat'],
+		props: ['dish'],
 		data() {
 			return {
-				afficherFormPlat: false
+				showUpdateForm: false
 			}
 		},
 		methods: {
